@@ -1,1 +1,150 @@
 
+package com.dsa.list;
+
+public class EmployeeDoubleLinkedList {
+	private EmployeeNode head;
+	private EmployeeNode tail;
+	private int size;
+
+	public Boolean isEmpty() {
+		return head == null;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void addFromFront(Employee employee) {
+		EmployeeNode node = new EmployeeNode(employee);
+		if (head == null) {
+			tail = node;
+		} else {
+			node.setNext(head);
+			head.setPrevious(node);
+		}
+		head = node;
+		size++;
+	}
+
+	public void addFromBack(Employee employee) {
+		EmployeeNode node = new EmployeeNode(employee);
+
+		if (tail == null) {
+			head = node;
+		} else {
+			tail.setNext(node);
+			node.setPrevious(tail);
+		}
+		tail = node;
+		size++;
+	}
+
+	public EmployeeNode removeFromFront() {
+		if (isEmpty())
+			return null;
+
+		EmployeeNode removedNode = head;
+		if (head.getNext() == null) {
+			tail = null;
+		} else {
+			head.getNext().setPrevious(null);
+		}
+		head = head.getNext();
+		size--;
+		removedNode.setNext(null);
+		return removedNode;
+	}
+
+	public EmployeeNode removeFromEnd() {
+		if (isEmpty())
+			return null;
+		EmployeeNode removedNode = tail;
+		if (tail.getPrevious() == null) {
+			head = null;
+		} else {
+			tail.getPrevious().setNext(null);
+		}
+		tail = tail.getPrevious();
+		size--;
+		removedNode.setPrevious(null);
+
+		return removedNode;
+	}
+
+	public void printList() {
+		EmployeeNode current = head;
+		System.out.print("Head ->");
+		while (current != null) {
+			System.out.print(current);
+			System.out.print("<->");
+			current = current.getNext();
+		}
+		System.out.println("null");
+	}
+
+	public int addBefore(Employee newEmployee, Employee existingEmployee) {
+		if (isEmpty())
+			return -1;
+		EmployeeNode newEmp = new EmployeeNode(newEmployee);
+		EmployeeNode existingEmp = new EmployeeNode(existingEmployee);
+		EmployeeNode current = head.getNext();
+		int count = 0;
+		if (size == 1 && head.getEmployee().equals(existingEmployee)) {
+			newEmp.setNext(head);
+			head.setPrevious(newEmp);
+			head = newEmp;
+			tail = existingEmp;
+			size++;
+			return 0;
+		} else if (size != 1 && head.getEmployee().equals(existingEmployee)) {
+			newEmp.setNext(head);
+			head.setPrevious(newEmp);
+			head = newEmp;
+			size++;
+			return 0;
+		}
+
+		while (current != null) {
+			if (current.getEmployee().equals(existingEmployee) && current.getPrevious() != null) {
+				current.getPrevious().setNext(newEmp);
+				newEmp.setPrevious(current.getPrevious());
+				newEmp.setNext(current);
+				current.setPrevious(newEmp);
+				break;
+			}
+			current = current.getNext();
+			count++;
+
+		}
+		size++;
+		return count;
+
+	}
+
+	public Boolean addBeforeNew(Employee newEmployee, Employee existingEmployee) {
+		if (isEmpty())
+			return false;
+
+		EmployeeNode newEmp = new EmployeeNode(newEmployee);
+		EmployeeNode current = head;
+
+		while (current != null && !current.getEmployee().equals(existingEmployee)) {
+			current = current.getNext();
+		}
+		if (current == null)
+			return false;
+
+		newEmp.setNext(current);
+		newEmp.setPrevious(current.getPrevious());
+		current.setPrevious(newEmp);
+		if (head == current) {
+			head = newEmp;
+		} else {
+			newEmp.getPrevious().setNext(newEmp);
+		}
+		size++;
+		return true;
+
+	}
+
+}

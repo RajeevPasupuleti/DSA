@@ -1,1 +1,49 @@
+package com.dsa.list;
+
+public class TestClass {
+
+	public static void main(String[] args) {
+		Employee Rajeev = new Employee("Rajeev", "P", "75");
+		Employee Anirudh = new Employee("Anirudh", "V", "101");
+		Employee Kalki = new Employee("Kalki", "S", "89");
+		Employee gautam = new Employee("Gautam", "P", "72");
+
+		EmployeeSingleLinkedList list = new EmployeeSingleLinkedList();
+		EmployeeDoubleLinkedList doubleList = new EmployeeDoubleLinkedList();
+
+		
+		  list.addToFirst(Rajeev); list.addToFirst(Anirudh); list.addToFirst(Kalki);
+		  list.printList(); System.out.println(); list.remove(); list.printList();
+		  System.out.println(); doubleList.printList();
+		  doubleList.addFromFront(Rajeev); doubleList.addFromFront(Kalki);
+		  doubleList.addFromFront(Anirudh); System.out.println();
+		  doubleList.printList(); System.out.println(doubleList.getSize());
+		  
+		  Boolean index = doubleList.addBeforeNew(gautam, Rajeev);
+		  System.out.println("Index where the item is added is:" + index);
+		  doubleList.printList();
+		 
+
+		Integer one = 1;
+		Integer two = 2;
+		Integer three = 3;
+		Integer four = 4;
+
+		IntegerLinkedList intlist = new IntegerLinkedList();
+		intlist.insertSorted(100);
+		intlist.printList();
+		System.out.println(intlist.getSize());
+		intlist.insertSorted(-75);
+		intlist.printList();
+		System.out.println(intlist.getSize());
+		intlist.insertSorted(275);
+		intlist.printList();
+		System.out.println(intlist.getSize());
+		intlist.insertSorted(0);
+		intlist.printList();
+		System.out.println(intlist.getSize());
+
+	}
+
+}
 
