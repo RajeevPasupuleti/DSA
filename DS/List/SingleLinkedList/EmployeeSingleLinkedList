@@ -1,1 +1,50 @@
+package com.dsa.list;
+
+public class EmployeeSingleLinkedList {
+	private EmployeeNode head;
+	private int size;
+
+	public void addToFirst(Employee employee) {
+		EmployeeNode node = new EmployeeNode(employee);
+		if (isEmpty()) {
+			head = node;
+		} else {
+			node.setNext(head);
+			head = node;
+		}
+		size++;
+	}
+
+	public EmployeeNode remove() {
+		if (isEmpty())
+			return null;
+
+		EmployeeNode removedNode = head;
+		head = removedNode.getNext();
+		removedNode.setNext(null);
+		size--;
+		return removedNode;
+
+	}
+
+	public void printList() {
+		EmployeeNode current = head;
+		System.out.print("Head ->");
+		while (current != null) {
+			System.out.print(current);
+			System.out.print("->");
+			current = current.getNext();
+		}
+		System.out.print("null");
+	}
+
+	public Boolean isEmpty() {
+		return head == null;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+}
 
