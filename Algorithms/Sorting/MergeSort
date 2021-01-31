@@ -1,1 +1,65 @@
+package com.dsa.sort;
 
+import java.util.Arrays;
+
+public class MergeSort {
+
+	public static void main(String[] args) {
+		int[] intArray = { 35, 20, 7, -15, 22, 1, 90 };
+		System.out.println("-------------------------------- This is Merge Sort --------------------------------");
+		mergeSort(intArray, 0, intArray.length);
+		System.out.println("Sorted array is " + Arrays.toString(intArray));
+	}
+
+	public static void mergeSort(int[] input, int start, int end) {
+		if (end - start < 2) {
+			return;
+		}
+		int mid = (start + end) / 2;
+		mergeSort(input, start, mid);
+		mergeSort(input, mid, end);
+		mergeDes(input, start, mid, end);
+	}
+
+	public static void merge(int[] input, int start, int mid, int end) {
+		if (input[mid - 1] <= input[mid]) {// We just return if the condition is true as both the arrays are already
+			// sorted.
+			return;
+		}
+		int i = start;
+		int j = mid;
+		int tempIndex = 0;
+		int[] temp = new int[end - start];
+		while (i < mid && j < end) {
+			temp[tempIndex++] = input[i] <= input[j] ? input[i++] : input[j++];
+		}
+		System.out.println(Arrays.toString(temp));
+		System.arraycopy(input, i, input, start + tempIndex, mid - i);/// This is to copy the remaining elements in the
+		/// left array to input array
+		System.out.println(Arrays.toString(input));
+		System.arraycopy(temp, 0, input, start, tempIndex);
+		/// This is to copy the temp sorted array back to the main input array. We don't
+		/// need to copy the leftover elements from the right array as they are already
+		/// present in the array.
+		System.out.println(Arrays.toString(input));
+
+	}
+
+	public static void mergeDes(int[] input, int start, int mid, int end) {
+		if (input[mid - 1] >= input[mid])
+			return;
+
+		int i = start;
+		int j = mid;
+		int tempIndex = 0;
+		int[] temp = new int[end - start];
+		while (i < mid && j < end) {
+			temp[tempIndex++] = input[i] >= input[j] ? input[i++] : input[j++];
+		}
+
+		System.arraycopy(input, i, input, start + tempIndex, mid - i);
+		System.arraycopy(temp, 0, input, start, tempIndex);
+
+	}
+
+}
